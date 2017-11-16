@@ -1,18 +1,26 @@
-import React from 'react'; // can't remove this dependency even though it directly doesn't seem to be used because jsx gets transpiled to React.createElement
+import React from 'react';
 import { render } from 'react-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import Comp1 from './Comp1/Comp1';
+import Landing from './Landing/Landing';
 
-import '../scss/main.scss';
+import './../../svg-icons.font';
+import '../style/main.scss';
 
-const HelloWorld = (
-  <div>
-    <h3>Hello World!</h3>
-    <Comp1 />
-  </div>
+const App = () => (
+  <BrowserRouter>
+    <div className="app">
+      <Switch>
+        <Route exact path="/" component={Landing} />
+        <Route path="/comp1" component={Comp1} />
+      </Switch>
+    </div>
+  </BrowserRouter>
 );
 
 const renderApp = () => {
-  render(HelloWorld, document.getElementById('app'));
+  render(<App />, document.getElementById('app'));
 };
 renderApp();
 

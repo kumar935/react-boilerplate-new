@@ -53,6 +53,26 @@ module.exports = {
           use: ['css-loader', 'postcss-loader', 'sass-loader'],
         }),
       },
+      {
+        /* to load svg icons or font-awesome icons as fonts */
+        test: /\.font\.(js|json)$/,
+        loader: 'style-loader!css-loader!fontgen-loader',
+      },
+      {
+        /* This url-loader is also used by fontgen to embed icon fonts
+         * (e.g. svg icons to font),
+         * and also used to load character fonts
+         * (e.g. ttf font files that are used in @font-face declarations)
+         * The 10kb limit doesn't affect the fontgen embed functionality
+         * As for the ttf font files are larger that 10kb, it's not embedded
+         * in the css file, and is generated in the dist folder */
+        test: /\.(woff|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=10000',
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|ico)$/,
+        loader: 'url-loader?limit=10000',
+      },
     ],
   },
 };
